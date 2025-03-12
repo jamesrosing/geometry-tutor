@@ -1,0 +1,397 @@
+---
+description: install and usage of shadcn ui component library
+globs: 
+alwaysApply: false
+---
+Docs
+
+Tailwind v4
+How to use shadcn/ui with Tailwind v4 and React 19.
+
+It’s here! Tailwind v4 and React 19. Ready for you to try out. You can start using it today.
+
+Get Started
+See Demo
+
+What's New
+The CLI can now initialize projects with Tailwind v4.
+Full support for the new @theme directive and @theme inline option.
+All components are updated for Tailwind v4 and React 19.
+We’ve removed the forwardRefs and adjusted the types.
+Every primitive now has a data-slot attribute for styling.
+We've fixed and cleaned up the style of the components.
+We're deprecating the toast component in favor of sonner.
+Buttons now use the default cursor.
+We're deprecating the default style. New projects will use new-york.
+HSL colors are now converted to OKLCH.
+Note: this is non-breaking. Your existing apps with Tailwind v3 and React 18 will still work. When you add new components, they'll still be in v3 and React 18 until you upgrade. Only new projects start with Tailwind v4 and React 19.
+
+See it Live
+I put together a demo with all the updated components here: https://v4.shadcn.com
+
+Take a look and test the components. If you find any bugs, please let me know on GitHub.
+
+Next.js
+Install and configure shadcn/ui for Next.js.
+
+Note: The following guide is for Tailwind v4. If you are using Tailwind v3, use shadcn@2.3.0.
+
+# Tailwindcss installation:
+Installation
+
+Install Tailwind CSS with Next.js
+Setting up Tailwind CSS in a Next.js project.
+
+01
+Create your project
+Start by creating a new Next.js project if you don’t have one set up already. The most common approach is to use Create Next App.
+
+Terminal
+npx create-next-app@latest my-project --typescript --eslint --app
+cd my-project
+02
+Install Tailwind CSS
+Install @tailwindcss/postcss and its peer dependencies via npm.
+
+Terminal
+npm install tailwindcss @tailwindcss/postcss postcss
+03
+Configure PostCSS Plugins
+Create a postcss.config.mjs file in the root of your project and add the @tailwindcss/postcss plugin to your PostCSS configuration.
+
+postcss.config.mjs
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+export default config;
+04
+Import Tailwind CSS
+Add an @import to ./src/app/globals.css that imports Tailwind CSS.
+
+globals.css
+@import "tailwindcss";
+05
+Start your build process
+Run your build process with npm run dev.
+
+Terminal
+npm run dev
+06
+Start using Tailwind in your project
+Start using Tailwind’s utility classes to style your content.
+
+page.tsx
+export default function Home() {
+  return (
+    <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
+  )
+}
+
+Create project
+Run the init command to create a new Next.js project or to setup an existing one:
+
+
+npm
+
+
+npx shadcn@latest init
+
+Choose between a Next.js project or a Monorepo.
+
+Add Components
+You can now start adding components to your project.
+
+
+npm
+
+npx shadcn@latest add button
+
+The command above will add the Button component to your project. You can then import it like this:
+
+import { Button } from "@/components/ui/button"
+ 
+export default function Home() {
+  return (
+    <div>
+      <Button>Click me</Button>
+    </div>
+  )
+}
+
+Docs
+Next.js
+Next.js
+Adding dark mode to your next app.
+
+Dark mode
+Install next-themes
+Start by installing next-themes:
+
+pnpm
+npm
+yarn
+bun
+npm install next-themes
+Copy
+Create a theme provider
+components/theme-provider.tsx
+"use client"
+ 
+import * as React from "react"
+import { ThemeProvider as NextThemesProvider } from "next-themes"
+ 
+export function ThemeProvider({
+  children,
+  ...props
+}: React.ComponentProps<typeof NextThemesProvider>) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+}
+Copy
+Wrap your root layout
+Add the ThemeProvider to your root layout and add the suppressHydrationWarning prop to the html tag.
+
+app/layout.tsx
+import { ThemeProvider } from "@/components/theme-provider"
+ 
+export default function RootLayout({ children }: RootLayoutProps) {
+  return (
+    <>
+      <html lang="en" suppressHydrationWarning>
+        <head />
+        <body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </>
+  )
+}
+Copy
+Add a mode toggle
+Place a mode toggle on your site to toggle between light and dark mode.
+
+Preview
+Code
+"use client"
+ 
+import * as React from "react"
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+ 
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+ 
+export function ModeToggle() {
+  const { setTheme } = useTheme()
+ 
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="icon">
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          System
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+
+Docs
+Theming
+Theming
+Using CSS Variables and color utilities for theming.
+
+You can choose between using CSS variables (recommended) or utility classes for theming.
+
+CSS Variables
+<div className="bg-background text-foreground" />
+Copy
+To use CSS variables for theming set tailwind.cssVariables to true in your components.json file.
+
+components.json
+{
+  "style": "default",
+  "rsc": true,
+  "tailwind": {
+    "config": "",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/registry/new-york-v4/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "iconLibrary": "lucide"
+}
+Copy
+Utility classes
+<div className="bg-zinc-950 dark:bg-white" />
+Copy
+To use utility classes for theming set tailwind.cssVariables to false in your components.json file.
+
+components.json
+{
+  "style": "default",
+  "rsc": true,
+  "tailwind": {
+    "config": "",
+    "css": "app/globals.css",
+    "baseColor": "slate",
+    "cssVariables": false
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/registry/new-york-v4/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "iconLibrary": "lucide"
+}
+Copy
+Convention
+We use a simple background and foreground convention for colors. The background variable is used for the background color of the component and the foreground variable is used for the text color.
+
+The background suffix is omitted when the variable is used for the background color of the component.
+
+Given the following CSS variables:
+
+--primary: oklch(0.205 0 0);
+--primary-foreground: oklch(0.985 0 0);
+Copy
+The background color of the following component will be var(--primary) and the foreground color will be var(--primary-foreground).
+
+<div className="bg-primary text-primary-foreground">Hello</div>
+Copy
+List of variables
+Here's the list of variables available for customization:
+
+app/globals.css
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+ 
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+Copy
+Adding new colors
+To add new colors, you need to add them to your CSS file and to your tailwind.config.js file.
+
+app/globals.css
+:root {
+  --warning: oklch(0.84 0.16 84);
+  --warning-foreground: oklch(0.28 0.07 46);
+}
+ 
+.dark {
+  --warning: oklch(0.41 0.11 46);
+  --warning-foreground: oklch(0.99 0.02 95);
+}
+ 
+@theme inline {
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+}
+Copy
+You can now use the warning utility class in your components.
+
+<div className="bg-warning text-warning-foreground" />
+Copy
+Other color formats
+See the Tailwind CSS documentation for more information on using colors in Tailwind CSS.

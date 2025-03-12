@@ -1,47 +1,66 @@
 @import "tailwindcss";
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 245, 247, 250;
-  --primary-color: 37, 99, 235;
-  --secondary-color: 59, 130, 246;
-  --accent-color: 251, 191, 36;
-  --success-color: 34, 197, 94;
-  --error-color: 239, 68, 68;
-  --warning-color: 245, 158, 11;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
 }
 
-/* Dark mode */
-.dark {
-  --foreground-rgb: 255, 255, 255;
-  --background-rgb: 17, 24, 39;
-  --primary-color: 59, 130, 246;
-  --secondary-color: 96, 165, 250;
-}
-
-/* High contrast mode */
-.high-contrast {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
-  --primary-color: 0, 0, 139;
-  --secondary-color: 0, 0, 205;
-  --accent-color: 255, 165, 0;
-  --success-color: 0, 100, 0;
-  --error-color: 139, 0, 0;
-  --warning-color: 184, 134, 11;
-}
-
-.dark.high-contrast {
-  --foreground-rgb: 255, 255, 255;
-  --background-rgb: 0, 0, 0;
-  --primary-color: 100, 149, 237;
-  --secondary-color: 135, 206, 250;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: white;
+    color: #0f172a;
+  }
+  
+  .dark body {
+    background-color: #0f172a;
+    color: #f8fafc;
+  }
 }
 
 /* Custom classes */
@@ -65,24 +84,25 @@ body {
   left: 0;
 }
 
-/* Transitions */
-.transition-colors {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 /* Prose for rich text content */
 .prose {
   max-width: 65ch;
-  color: rgb(var(--foreground-rgb));
+  color: #0f172a;
+}
+
+.dark .prose {
+  color: #f8fafc;
 }
 
 .prose h1, .prose h2, .prose h3, .prose h4 {
-  color: rgb(var(--foreground-rgb));
+  color: #0f172a;
   margin-top: 1.5em;
   margin-bottom: 0.75em;
   font-weight: 600;
+}
+
+.dark .prose h1, .dark .prose h2, .dark .prose h3, .dark .prose h4 {
+  color: #f8fafc;
 }
 
 .prose p {

@@ -1,7 +1,7 @@
 // src/app/(dashboard)/progress/page.tsx
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { MODULES } from '@/lib/constants';
@@ -19,9 +19,14 @@ export default function ProgressPage() {
   const [strengths, setStrengths] = useState<ModuleId[]>([]);
   const [weaknesses, setWeaknesses] = useState<ModuleId[]>([]);
   
+  // Use useCallback to prevent infinite loop
+  const updateProgress = useCallback(() => {
+    calculateOverallProgress();
+  }, [calculateOverallProgress]);
+  
   useEffect(() => {
     // Update overall progress
-    calculateOverallProgress();
+    updateProgress();
     
     // Determine strengths and weaknesses
     const moduleScores = modules.map(module => {
@@ -42,7 +47,7 @@ export default function ProgressPage() {
     const attempted = sortedScores.filter(m => m.score > 0);
     setWeaknesses(attempted.slice(-3).map(m => m.id).reverse());
     
-  }, [calculateOverallProgress, modules, progress.quizResults]);
+  }, [modules, progress.quizResults, updateProgress]);
 
   // Create data for radar chart
   const getModuleProgress = (moduleId: ModuleId) => {
@@ -65,14 +70,14 @@ export default function ProgressPage() {
       >
         <h1 className="text-3xl font-bold mb-6">Your Progress</h1>
         
-        <div className="bg-white shadow-md rounded-lg p-6 mb-8">
+        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-8">
           <h2 className="text-xl font-semibold mb-4">Overall Progress</h2>
           <div className="flex items-center">
             <div className="w-full">
-              <div className="flex justify-between text-sm text-gray-600 mb-1">
+              <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
                 <span>Progress: {progress.overallProgress}% complete</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
                 <div 
                   className="bg-blue-600 h-3 rounded-full" 
                   style={{ width: `${progress.overallProgress}%` }}
@@ -89,7 +94,7 @@ export default function ProgressPage() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-white shadow-md rounded-lg p-6"
+          className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6"
         >
           <h2 className="text-xl font-semibold mb-4">Your Strengths</h2>
           {strengths.length > 0 ? (
@@ -105,21 +110,21 @@ export default function ProgressPage() {
                 
                 return (
                   <li key={moduleId} className="flex items-center">
-                    <div className="bg-green-100 rounded-full p-2 mr-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="bg-green-100 dark:bg-green-900 rounded-full p-2 mr-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
                     <div>
                       <h3 className="font-medium">{module.title}</h3>
-                      <p className="text-sm text-gray-600">Quiz score: {score}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Quiz score: {score}</p>
                     </div>
                   </li>
                 );
               })}
             </ul>
           ) : (
-            <p className="text-gray-500 italic">Complete some quizzes to see your strengths!</p>
+            <p className="text-gray-500 dark:text-gray-400 italic">Complete some quizzes to see your strengths!</p>
           )}
         </motion.div>
         
@@ -128,7 +133,7 @@ export default function ProgressPage() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-white shadow-md rounded-lg p-6"
+          className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6"
         >
           <h2 className="text-xl font-semibold mb-4">Areas for Improvement</h2>
           {weaknesses.length > 0 ? (
@@ -144,17 +149,17 @@ export default function ProgressPage() {
                 
                 return (
                   <li key={moduleId} className="flex items-start">
-                    <div className="bg-yellow-100 rounded-full p-2 mr-3 mt-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="bg-yellow-100 dark:bg-yellow-900 rounded-full p-2 mr-3 mt-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-600 dark:text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                       </svg>
                     </div>
                     <div>
                       <h3 className="font-medium">{module.title}</h3>
-                      <p className="text-sm text-gray-600">Quiz score: {score}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Quiz score: {score}</p>
                       <Link 
                         href={`/modules/${moduleId}/lesson`}
-                        className="text-sm text-blue-600 hover:underline mt-1 inline-block"
+                        className="text-sm text-blue-600 dark:text-blue-400 hover:underline mt-1 inline-block"
                       >
                         Review this module
                       </Link>
@@ -164,7 +169,7 @@ export default function ProgressPage() {
               })}
             </ul>
           ) : (
-            <p className="text-gray-500 italic">Complete some quizzes to see areas for improvement!</p>
+            <p className="text-gray-500 dark:text-gray-400 italic">Complete some quizzes to see areas for improvement!</p>
           )}
         </motion.div>
       </div>

@@ -28,7 +28,7 @@ export default function RootLayout({
         >
           <div className="flex min-h-screen flex-col">
             <Navigation />
-            <main className="flex-1 bg-gray-50 dark:bg-gray-900">
+            <main className="flex-1 bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-50">
               {children}
             </main>
             <Footer />

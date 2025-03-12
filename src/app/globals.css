@@ -1,26 +1,107 @@
 @import "tailwindcss";
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 245, 247, 250;
+  --primary-color: 37, 99, 235;
+  --secondary-color: 59, 130, 246;
+  --accent-color: 251, 191, 36;
+  --success-color: 34, 197, 94;
+  --error-color: 239, 68, 68;
+  --warning-color: 245, 158, 11;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Dark mode */
+.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 17, 24, 39;
+  --primary-color: 59, 130, 246;
+  --secondary-color: 96, 165, 250;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* High contrast mode */
+.high-contrast {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+  --primary-color: 0, 0, 139;
+  --secondary-color: 0, 0, 205;
+  --accent-color: 255, 165, 0;
+  --success-color: 0, 100, 0;
+  --error-color: 139, 0, 0;
+  --warning-color: 184, 134, 11;
+}
+
+.dark.high-contrast {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 0, 0, 0;
+  --primary-color: 100, 149, 237;
+  --secondary-color: 135, 206, 250;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+/* Custom classes */
+.aspect-w-16 {
+  position: relative;
+  padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%);
+  --tw-aspect-w: 16;
+}
+
+.aspect-h-9 {
+  --tw-aspect-h: 9;
+}
+
+.aspect-w-16 > * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* Transitions */
+.transition-colors {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Prose for rich text content */
+.prose {
+  max-width: 65ch;
+  color: rgb(var(--foreground-rgb));
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  color: rgb(var(--foreground-rgb));
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  font-weight: 600;
+}
+
+.prose p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.prose img {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.prose ul, .prose ol {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+}
+
+.prose li {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
 }

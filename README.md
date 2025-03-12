@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Geometry Tutor for 8th Grade
+
+An interactive educational app designed to teach 8th-grade students key geometry concepts through structured lessons, demonstrations, quizzes, and review sessions.
+
+![Geometry Tutor Screenshot](public/images/app-screenshot.png)
+
+## Features
+
+- **Structured Learning Modules**: Eight comprehensive modules covering essential geometry concepts
+- **Interactive Learning**: Each module includes:
+  - Introductory lessons with clear explanations
+  - Interactive demonstrations for hands-on exploration
+  - Quizzes with immediate feedback
+  - Spaced repetition reviews for better retention
+- **Progress Tracking**: Monitor your progress across all modules
+- **Personalized Experience**: Settings for theme, font size, and accessibility options
+- **Mobile Responsive**: Learn on any device
+
+## Modules
+
+1. **Basic Shapes**: Properties of triangles, quadrilaterals, and circles
+2. **Angles**: Types, measurements, and relationships
+3. **Parallel and Perpendicular Lines**: Properties and applications
+4. **Congruence and Similarity**: Identifying and comparing shapes
+5. **Pythagorean Theorem**: Calculating side lengths in right triangles
+6. **Area and Perimeter**: Formulas for 2D shapes
+7. **Volume and Surface Area**: Calculations for 3D shapes
+8. **Transformations**: Translations, rotations, reflections, and dilations
+
+## Technology Stack
+
+- **Next.js 13** with App Router for frontend framework
+- **TypeScript** for type-safe code
+- **Tailwind CSS** for styling
+- **Framer Motion** for animations
+- **Zustand** for state management
+- **Vercel** for deployment
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 16.8.0 or later
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/geometry-tutor.git
+   cd geometry-tutor
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the app.
+
+## Deployment
+
+The app is deployed on Vercel. See the [deployment guide](DEPLOY.md) for detailed instructions.
+
+## Project Structure
+
+```
+geometry-tutor/
+├── src/
+│   ├── app/              # Next.js 13 App Router
+│   │   ├── (auth)/       # Authentication routes
+│   │   ├── (dashboard)/  # Main app routes
+│   │   └── layout.tsx    # Root layout
+│   ├── components/       # UI components
+│   ├── lib/              # Utility functions & constants
+│   ├── hooks/            # Custom React hooks
+│   └── store/            # Zustand state management
+├── public/               # Static assets
+└── ...                   # Config files
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## License
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Acknowledgments
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Designed for educational purposes to help 8th-grade students learn geometry
+- Built with Next.js, Tailwind CSS, and Framer Motion
